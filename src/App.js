@@ -9,6 +9,7 @@ import Register from "./pages/Register";
 import ProductList from "./pages/ProductList";
 import NotFound from "./pages/NotFound";
 import Checkout from "./pages/Checkout";
+import Dashboard from "./adminPages/Dashboard";
 
 function App() {
   return (
@@ -26,6 +27,9 @@ function App() {
             <Route path="" element={<ProductList />} />
           </Route>
           <Route path="checkout" element={<Checkout />} />
+        </Route>
+        <Route path="/dashboard">
+          <Route index element={<Dashboard />} />
         </Route>
       </Routes>
     </BrowserRouter>
