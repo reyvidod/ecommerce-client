@@ -1,11 +1,11 @@
 const Footer = () => {
   return (
-    <footer class="text-center lg:text-left bg-white text-black-600">
-      <div class="mx-6 py-10 text-center md:text-left">
-        <div class="grid grid-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div class="">
+    <footer className="text-center lg:text-left bg-white text-black-600">
+      <div className="mx-6 py-10 text-center md:text-left">
+        <div className="grid grid-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="">
             <h6
-              class="
+              className="
               font-semibold
               mb-4
               flex
@@ -20,14 +20,14 @@ const Footer = () => {
               ></img>
               Find Us Here
             </h6>
-            <div class="flex ">
-              <a href="#!" class="mr-6 text-gray-600">
+            <div className="flex ">
+              <a href="#!" className="mr-6 text-gray-600">
                 <svg
                   aria-hidden="true"
                   focusable="false"
                   data-prefix="fab"
                   data-icon="instagram"
-                  class="w-3.5"
+                  className="w-3.5"
                   role="img"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 448 512"
@@ -40,46 +40,46 @@ const Footer = () => {
               </a>
             </div>
           </div>
-          <div class="">
-            <h6 class="font-semibold mb-4 flex justify-center md:justify-start">
+          <div className="">
+            <h6 className="font-semibold mb-4 flex justify-center md:justify-start">
               Address
             </h6>
-            <p class="mb-4">
-              <a href="#!" class="text-gray-600">
+            <p className="mb-4">
+              <a href="#!" className="text-gray-600">
                 Jalan Lorem Ipsum
               </a>
             </p>
           </div>
-          <div class="">
-            <h6 class="font-semibold mb-4 flex justify-center md:justify-start">
+          <div className="">
+            <h6 className="font-semibold mb-4 flex justify-center md:justify-start">
               Company
             </h6>
-            <p class="mb-4">
-              <a href="#!" class="text-gray-600">
+            <p className="mb-4">
+              <a href="#!" className="text-gray-600">
                 Who we are
               </a>
             </p>
-            <p class="mb-4">
-              <a href="#!" class="text-gray-600">
+            <p className="mb-4">
+              <a href="#!" className="text-gray-600">
                 Careers
               </a>
             </p>
-            <p class="mb-4">
-              <a href="#!" class="text-gray-600">
+            <p className="mb-4">
+              <a href="#!" className="text-gray-600">
                 FAQ
               </a>
             </p>
             <p>
-              <a href="#!" class="text-gray-600">
+              <a href="#!" className="text-gray-600">
                 Help
               </a>
             </p>
           </div>
         </div>
       </div>
-      <div class="text-center p-6 bg-gray-200">
+      <div className="text-center p-6 bg-gray-200">
         <span>© 2023 Copyright:</span>
-        <span class="text-gray-600 font-semibold"> Bodimaji</span>
+        <span className="text-gray-600 font-semibold"> Bodimaji</span>
       </div>
     </footer>
   );
