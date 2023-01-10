@@ -1,5 +1,9 @@
+import axios from "axios";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { Card, ImageCard } from "./Card";
+
+const API_URL = "http://localhost:5000";
 
 export const ArticleCarousel = () => {
   return (
@@ -35,6 +39,16 @@ export const ArticleCarousel = () => {
 };
 
 export const ProductCarousel = () => {
+  const [product, setProduct] = useState([]);
+
+  const fetchProduct = async () => {
+    const { data } = await axios.get(API_URL + "/product");
+    setProduct(data);
+  };
+
+  useEffect(() => {
+    fetchProduct();
+  }, []);
   return (
     <div className="px-6 py-12 md:px-12 bg-gray-50 text-gray-800 text-center lg:text-left">
       <div className="container mx-auto xl:px-32">
@@ -58,9 +72,9 @@ export const ProductCarousel = () => {
           </div>
         </div>
         <div className="grid lg:grid-cols-3 gap-12 flex items-center">
-          <ImageCard></ImageCard>
-          <ImageCard></ImageCard>
-          <ImageCard></ImageCard>
+          {product.slice(0, 3).map((p) => (
+            <ImageCard product={p} key={p._id} />
+          ))}
         </div>
       </div>
     </div>

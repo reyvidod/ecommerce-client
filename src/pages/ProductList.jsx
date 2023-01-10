@@ -1,8 +1,23 @@
+import axios from "axios";
 import { ProductCard } from "../components/Card";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
+import { useState, useEffect } from "react";
+
+const API_URL = "http://localhost:5000";
 
 const ProductList = () => {
+  const [product, setProduct] = useState([]);
+
+  const fetchProduct = async () => {
+    const { data } = await axios.get(API_URL + "/product");
+    setProduct(data);
+  };
+
+  useEffect(() => {
+    fetchProduct();
+  }, []);
+
   return (
     <>
       <Navbar />
@@ -17,12 +32,9 @@ const ProductList = () => {
             </div>
           </div>
           <div className="grid lg:grid-cols-4 gap-12 flex items-center">
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
+            {product.map((p) => (
+              <ProductCard product={p} key={p._id} />
+            ))}
           </div>
         </div>
       </div>
