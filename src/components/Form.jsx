@@ -1,8 +1,10 @@
 import axios from "axios";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { loginStart, loginSuccess, loginFailed } from "../redux/userSlice";
+
+const API_URL = "http://localhost:5000";
 
 export const LoginForm = () => {
   const [username, setUsername] = useState("");
@@ -19,7 +21,7 @@ export const LoginForm = () => {
       password,
     };
     await axios
-      .post("http://localhost:5000/user/login", credentials)
+      .post(API_URL + `/user/login`, credentials)
       .then((response) => {
         if (response.data.role === "admin") {
           dispatch(loginSuccess(response));
@@ -245,6 +247,41 @@ export const RegisterForm = () => {
 };
 
 export const CheckoutForm = () => {
+  const { currentUser } = useSelector((state) => state.user);
+
+  const [cart, setCart] = useState([]);
+  const [bill, setBill] = useState([]);
+  const [inputs, setInputs] = useState(0);
+
+  let navigate = useNavigate();
+  let dispatch = useDispatch();
+
+  const getCart = async () => {
+    const { data } = await axios.get(API_URL + `/cart/${currentUser.data._id}`);
+
+    if (data) {
+      setCart(data.products);
+      setBill(data.bill);
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setInputs((prev) => {
+      return { ...prev, [name]: value };
+    });
+  };
+
+  useEffect(() => {
+    getCart();
+  }, []);
+
+  const handleCheckout = async (e) => {
+    e.preventDefault();
+    // const res = await axios.post(API_URL + `/checkout/${currentUser.data._id}`, inputs);
+    alert("watata");
+  };
+
   return (
     <div className="bg-gray-50">
       <div className="container p-12 mx-auto ">
@@ -253,22 +290,17 @@ export const CheckoutForm = () => {
             <h2 className="mb-4 font-bold md:text-xl text-heading ">
               Shipping Address
             </h2>
-            <form
-              className="justify-center w-full mx-auto"
-              method="post"
-              action
-            >
+            <form className="justify-center w-full mx-auto">
               <div className="">
                 <div className="mt-4">
                   <div className="w-full">
-                    <label
-                      for="Fullname"
-                      className="block mb-3 text-sm font-semibold text-gray-500"
-                    >
+                    <label className="block mb-3 text-sm font-semibold text-gray-500">
                       Name
                     </label>
                     <input
-                      name="fullName"
+                      defaultValue={currentUser.data.name}
+                      onChange={handleChange}
+                      name="name"
                       type="text"
                       placeholder="Name"
                       className="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm"
@@ -277,14 +309,13 @@ export const CheckoutForm = () => {
                 </div>
                 <div className="mt-4">
                   <div className="w-full">
-                    <label
-                      for="Email"
-                      className="block mb-3 text-sm font-semibold text-gray-500"
-                    >
+                    <label className="block mb-3 text-sm font-semibold text-gray-500">
                       Email
                     </label>
                     <input
-                      name="Last Name"
+                      defaultValue={currentUser.data.email}
+                      onChange={handleChange}
+                      name="email"
                       type="text"
                       placeholder="Email"
                       className="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm"
@@ -293,14 +324,16 @@ export const CheckoutForm = () => {
                   <div className="mt-4">
                     <div className="w-full">
                       <label
-                        for="Address"
+                        htmlFor="Address"
                         className="block mb-3 text-sm font-semibold text-gray-500"
                       >
                         Address
                       </label>
                       <textarea
+                        defaultValue={currentUser.data.address}
+                        onChange={handleChange}
                         className="w-full px-4 py-3 text-xs border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600"
-                        name="Address"
+                        name="address"
                         cols="20"
                         rows="4"
                         placeholder="Address"
@@ -309,13 +342,12 @@ export const CheckoutForm = () => {
                   </div>
                   <div className="space-x-0 lg:flex lg:space-x-4">
                     <div className="w-full lg:w-1/2">
-                      <label
-                        for="city"
-                        className="block mb-3 text-sm font-semibold text-gray-500"
-                      >
+                      <label className="block mb-3 text-sm font-semibold text-gray-500">
                         City
                       </label>
                       <input
+                        defaultValue={currentUser.data.city}
+                        onChange={handleChange}
                         name="city"
                         type="text"
                         placeholder="City"
@@ -323,14 +355,13 @@ export const CheckoutForm = () => {
                       />
                     </div>
                     <div className="w-full lg:w-1/2 ">
-                      <label
-                        for="postcode"
-                        className="block mb-3 text-sm font-semibold text-gray-500"
-                      >
-                        Postcode
+                      <label className="block mb-3 text-sm font-semibold text-gray-500">
+                        Post Code
                       </label>
                       <input
-                        name="postcode"
+                        defaultValue={currentUser.data.zip}
+                        onChange={handleChange}
+                        name="zip"
                         type="text"
                         placeholder="Post Code"
                         className="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600"
@@ -339,7 +370,10 @@ export const CheckoutForm = () => {
                   </div>
                 </div>
                 <div className="mt-4">
-                  <button className="w-full px-6 py-2 text-blue-200 bg-blue-600 hover:bg-blue-900">
+                  <button
+                    onClick={handleCheckout}
+                    className="w-full px-6 py-2 text-blue-200 bg-blue-600 hover:bg-blue-900"
+                  >
                     Checkout
                   </button>
                 </div>
@@ -350,77 +384,54 @@ export const CheckoutForm = () => {
             <div className="pt-12 md:pt-0 2xl:ps-4">
               <h2 className="text-xl font-bold">Order Summary</h2>
               <div className="mt-8">
-                <div className="flex flex-col space-y-4">
-                  <div className="flex space-x-4">
-                    <div>
-                      <img
-                        src="https://source.unsplash.com/user/erondu/1600x900"
-                        alt="sum"
-                        className="w-60"
-                      />
-                    </div>
-                    <div>
-                      <h2 className="text-xl font-bold">Title</h2>
-                      <p className="text-sm">Lorem ipsum dolor sit amet, tet</p>
-                      <span className="text-red-600">Price</span> $20
-                    </div>
-                    <div>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="w-6 h-6"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M6 18L18 6M6 6l12 12"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-                  <div className="flex space-x-4">
-                    <div>
-                      <img
-                        src="https://source.unsplash.com/user/erondu/1600x900"
-                        alt="sum"
-                        className="w-60"
-                      />
-                    </div>
-                    <div>
-                      <h2 className="text-xl font-bold">Title</h2>
-                      <p className="text-sm">Lorem ipsum dolor sit amet, tet</p>
-                      <span className="text-red-600">Price</span> $20
-                    </div>
-                    <div>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="w-6 h-6"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M6 18L18 6M6 6l12 12"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
+                {cart ? (
+                  <>
+                    {cart.map((cartItem) => (
+                      <div className="flex flex-col space-y-4">
+                        <div className="flex space-x-4">
+                          <div>
+                            <h2 className="text-xl font-bold">
+                              {cartItem.name}
+                            </h2>
+                            <p className="text-sm">{cartItem.quantity}</p>
+                            <span className="text-red-600">Price</span> Rp
+                            {cartItem.price}
+                          </div>
+                          <div>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="w-6 h-6"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M6 18L18 6M6 6l12 12"
+                              />
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </>
+                ) : (
+                  <> NO PRODUCT</>
+                )}
               </div>
               <div className="flex p-4 mt-4">
-                <h2 className="text-xl font-bold">ITEMS 2</h2>
+                <h2 className="text-xl font-bold">Summary</h2>
+              </div>
+              <div className="flex items-center w-full py-4 text-sm font-semibold lg:py-5 lg:px-3 text-heading last:border-b-0 last:text-base last:pb-0">
+                Subtotal<span className="ml-2">Rp{bill}</span>
               </div>
               <div className="flex items-center w-full py-4 text-sm font-semibold border-b border-gray-300 lg:py-5 lg:px-3 text-heading last:border-b-0 last:text-base last:pb-0">
-                Subtotal<span className="ml-2">$40.00</span>
+                Delivery Fee<span className="ml-2">Rp0</span>
               </div>
               <div className="flex items-center w-full py-4 text-sm font-semibold border-b border-gray-300 lg:py-5 lg:px-3 text-heading last:border-b-0 last:text-base last:pb-0">
-                Total<span className="ml-2">$50.00</span>
+                Total<span className="ml-2">Rp{bill}</span>
               </div>
             </div>
           </div>
