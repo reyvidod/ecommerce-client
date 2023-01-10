@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Hero = () => {
   return (
     <div className="px-6 py-12 md:px-12 bg-gray-50 text-gray-800 text-center lg:text-left">
@@ -13,7 +15,8 @@ const Hero = () => {
               Size-inclusive fashion <br />
               is a human right
             </h1>
-            <a
+            <Link
+              to="/product"
               className="inline-block px-7 py-3 mr-2 bg-black text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
               data-mdb-ripple="true"
               data-mdb-ripple-color="light"
@@ -21,7 +24,7 @@ const Hero = () => {
               role="button"
             >
               Explore
-            </a>
+            </Link>
           </div>
           <div className="mb-12 lg:mb-0">
             <img

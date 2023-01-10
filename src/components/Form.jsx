@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export const LoginForm = () => {
   return (
     <section className="h-screen bg-stone-200">
@@ -55,14 +57,16 @@ export const LoginForm = () => {
 
               <div className="py-3 flex items-center justify-between pb-6">
                 <p className="mb-0 mr-2">Don't have an account?</p>
-                <button
-                  type="button"
-                  className="inline-block px-6 py-2 border-2 border-red-600 text-red-900 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
-                  data-mdb-ripple="true"
-                  data-mdb-ripple-color="light"
-                >
-                  Register
-                </button>
+                <Link to="/register">
+                  <button
+                    type="button"
+                    className="inline-block px-6 py-2 border-2 border-red-600 text-red-900 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+                    data-mdb-ripple="true"
+                    data-mdb-ripple-color="light"
+                  >
+                    Register
+                  </button>
+                </Link>
               </div>
             </form>
           </div>
@@ -149,14 +153,16 @@ export const RegisterForm = () => {
 
               <div className="py-3 flex items-center justify-between pb-6">
                 <p className="mb-0 mr-2">Already have an account?</p>
-                <button
-                  type="button"
-                  className="inline-block px-6 py-2 border-2 border-red-600 text-red-900 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
-                  data-mdb-ripple="true"
-                  data-mdb-ripple-color="light"
-                >
-                  Login
-                </button>
+                <Link to="/login">
+                  <button
+                    type="button"
+                    className="inline-block px-6 py-2 border-2 border-red-600 text-red-900 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+                    data-mdb-ripple="true"
+                    data-mdb-ripple-color="light"
+                  >
+                    Login
+                  </button>
+                </Link>
               </div>
             </form>
           </div>

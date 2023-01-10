@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Card, ImageCard } from "./Card";
 
 export const ArticleCarousel = () => {
@@ -11,7 +12,8 @@ export const ArticleCarousel = () => {
             </h1>
           </div>
           <div className="mb-12 lg:mb-0 justify-self-end">
-            <a
+            <Link
+              to="/article"
               className="inline-block px-7 py-3 mr-2 bg-black text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-red-900 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
               data-mdb-ripple="true"
               data-mdb-ripple-color="light"
@@ -19,7 +21,7 @@ export const ArticleCarousel = () => {
               role="button"
             >
               See All
-            </a>
+            </Link>
           </div>
         </div>
         <div className="grid lg:grid-cols-3 gap-12 flex items-center">
@@ -43,7 +45,8 @@ export const ProductCarousel = () => {
             </h1>
           </div>
           <div className="mb-12 lg:mb-0 justify-self-end">
-            <a
+            <Link
+              to="/product"
               className="inline-block px-7 py-3 mr-2 bg-black text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-red-900 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
               data-mdb-ripple="true"
               data-mdb-ripple-color="light"
@@ -51,7 +54,7 @@ export const ProductCarousel = () => {
               role="button"
             >
               See All
-            </a>
+            </Link>
           </div>
         </div>
         <div className="grid lg:grid-cols-3 gap-12 flex items-center">
