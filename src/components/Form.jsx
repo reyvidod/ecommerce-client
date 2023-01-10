@@ -23,6 +23,11 @@ export const LoginForm = () => {
         } else if (response.data.role === "customer") {
           navigate("/");
         }
+        localStorage.setItem("name", response.data.name);
+        localStorage.setItem("username", response.data.username);
+        localStorage.setItem("role", response.data.role);
+        localStorage.setItem("phone", response.data.phone);
+        localStorage.setItem("address", response.data.address);
       })
       .catch((error) => {
         alert(error.response.data.message);
