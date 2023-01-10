@@ -1,8 +1,6 @@
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
-import { Card } from "../components/Card";
-import ArticleCarousel from "../components/ArticleCarousel";
-import ProductCarousel from "../components/ProductCarousel";
+import { ProductCarousel, ArticleCarousel } from "../components/Carousel";
 import Footer from "../components/Footer";
 
 const Landing = () => {
