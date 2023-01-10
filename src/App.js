@@ -10,6 +10,7 @@ import ProductList from "./pages/ProductList";
 import NotFound from "./pages/NotFound";
 import Checkout from "./pages/Checkout";
 import Dashboard from "./adminPages/Dashboard";
+import Success from "./pages/Success";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             <Route path="" element={<ProductList />} />
           </Route>
           <Route path="checkout" element={<Checkout />} />
+          <Route path="success" element={<Success />} />
         </Route>
         <Route path="/dashboard">
           <Route index element={<Dashboard />} />

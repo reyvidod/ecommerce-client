@@ -279,7 +279,7 @@ export const CheckoutForm = () => {
   const handleCheckout = async (e) => {
     e.preventDefault();
     // const res = await axios.post(API_URL + `/checkout/${currentUser.data._id}`, inputs);
-    alert("watata");
+    navigate("/success");
   };
 
   return (
