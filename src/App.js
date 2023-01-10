@@ -8,6 +8,7 @@ import ArticleList from "./pages/ArticleList";
 import Register from "./pages/Register";
 import ProductList from "./pages/ProductList";
 import NotFound from "./pages/NotFound";
+import Checkout from "./pages/Checkout";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="product">
             <Route path="" element={<ProductList />} />
           </Route>
+          <Route path="checkout" element={<Checkout />} />
         </Route>
       </Routes>
     </BrowserRouter>
