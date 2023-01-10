@@ -1,36 +1,37 @@
 import axios from "axios";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { loginStart, loginSuccess, loginFailed } from "../redux/userSlice";
 
 export const LoginForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   let navigate = useNavigate();
+  let dispatch = useDispatch();
 
   const loginClick = async (e) => {
     e.preventDefault();
+    dispatch(loginStart());
     const credentials = {
       username,
       password,
     };
-
     await axios
       .post("http://localhost:5000/user/login", credentials)
       .then((response) => {
         if (response.data.role === "admin") {
+          dispatch(loginSuccess(response));
           navigate("/dashboard");
         } else if (response.data.role === "customer") {
+          dispatch(loginSuccess(response));
           navigate("/");
         }
-        localStorage.setItem("name", response.data.name);
-        localStorage.setItem("username", response.data.username);
-        localStorage.setItem("role", response.data.role);
-        localStorage.setItem("phone", response.data.phone);
-        localStorage.setItem("address", response.data.address);
       })
       .catch((error) => {
         alert(error.response.data.message);
+        dispatch(loginFailed());
       });
   };
 
