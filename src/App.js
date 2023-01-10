@@ -7,11 +7,13 @@ import Login from "./pages/Login";
 import ArticleList from "./pages/ArticleList";
 import Register from "./pages/Register";
 import ProductList from "./pages/ProductList";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="*" element={<NotFound />} />
         <Route path="/">
           <Route index element={<Landing />} />
           <Route path="login" element={<Login />} />
